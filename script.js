@@ -22,8 +22,10 @@ const brownHorse = document.querySelector("#brown-horse");
 const winnerButton = document.querySelector("#winner");
 
 const restartButton = document.querySelector("#restart-button");
-restartButton.disabled = true;
+restartButton.style.display = "none";
 
+
+const stepsButton = document.querySelector("#steps-Button");
 // OnClick Functions Here
 const advanceBlue = (e) => {
   blue_position += 1;
@@ -61,6 +63,7 @@ const restartGame = (e) => {
   number = 0;
   restartButton.disabled = true;
   document.getElementById("winner").innerHTML = "";
+  restartButton.style.display = "none";
 
 }
 
@@ -75,11 +78,14 @@ const checkWinner = (position, color) => {
       pinkButton.disabled = true;
       brownButton.disabled = true;
       restartButton.disabled = false;
+      restartButton.style.display = "block";
     }
   }
 }
 
-
+// const randomNum = (e) => {
+//   let randomNumber = Math.floor(Math.random() * 3);
+// }
 
 
 // Event Listeners Here
@@ -87,3 +93,4 @@ blueButton.addEventListener("click", advanceBlue);
 pinkButton.addEventListener("click",advancePink);
 brownButton.addEventListener("click",advancebrown);
 restartButton.addEventListener("click", restartGame);
+// stepsButton.addEventListener("click", randomNum);
