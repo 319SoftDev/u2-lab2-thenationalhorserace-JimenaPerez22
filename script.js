@@ -7,7 +7,6 @@ let pink_position = 1;
 let brown_position = 1;
 
 let number = 0;
-let blueN = 1
 
 
 // Query Selectors Here
@@ -22,23 +21,26 @@ const brownHorse = document.querySelector("#brown-horse");
 
 const winnerButton = document.querySelector("#winner");
 
+const restartButton = document.querySelector("#restart-button");
+restartButton.disabled = true;
+
 // OnClick Functions Here
 const advanceBlue = (e) => {
   blue_position += 1;
   changePosition(blueHorse, blue_position);
   return checkWinner(blue_position, "Blue ");
 
-  if (blue_position >= 5){
-    blueN += 1;
-    document.getElementById("blue-horse").alt = "blue horse at postion " + blue_position + "out of 5";
-  }
+  // if (blue_position >= 5){
+  //   blueN += 1;
+  //   document.getElementById("blue-horse").alt = "blue horse at postion " + blue_position + "out of 5";
+  // }
 
-};
+}
 const advancePink = (e) => {
   pink_position += 1;
   changePosition(pinkHorse, pink_position);
   return checkWinner(pink_position, "Pink ");
-};
+}
 
 const advancebrown = (e) => {
   brown_position += 1;
@@ -47,18 +49,34 @@ const advancebrown = (e) => {
 }
 
 
-
 // Check for a winner
 const checkWinner = (position, color) => {
   if (number == 0){
     if (position == 5){
       document.getElementById("winner").innerHTML = color + "is the Winner!";
-      console.log("winner");
       number = 1;
       console.log(number);
+      blueButton.disabled = true;
+      pinkButton.disabled = true;
+      brownButton.disabled = true;
+      restartButton.disabled = false;
     }
   }
-};
+}
+
+
+// const restartHorse =(e) => {
+//     blue_position = 0;
+//     pink_position = 0;
+//     brown_position = 0;
+//     number = 0;
+//     blueButton.disabled = false;
+//     pinkButton.disabled = false;
+//     brownButton.disabled = false;
+//     restartButton.disabled = true;
+//     document.getElementById("winner").innerHTML = "";
+      
+// }
 
 
 
@@ -66,3 +84,15 @@ const checkWinner = (position, color) => {
 blueButton.addEventListener("click", advanceBlue);
 pinkButton.addEventListener("click",advancePink);
 brownButton.addEventListener("click",advancebrown);
+restartButton.addEventListener("click", () => {
+  blue_position = 1;
+  pink_position = 1;
+  brown_position = 1;
+  blueButton.disabled = false;
+  pinkButton.disabled = false;
+  brownButton.disabled = false;
+  number = 0;
+  restartButton.disabled = true;
+  document.getElementById("winner").innerHTML = "";
+
+});
