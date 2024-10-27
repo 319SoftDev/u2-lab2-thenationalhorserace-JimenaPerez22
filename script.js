@@ -48,6 +48,21 @@ const advancebrown = (e) => {
   return checkWinner(brown_position, "Brown ");
 }
 
+const restartGame = (e) => {
+  brown_position = 1;
+  pink_position = 1;
+  blue_position = 1;
+  changePosition(blueHorse,blue_position);
+  changePosition(pinkHorse,pink_position);
+  changePosition(brownHorse,brown_position);
+  blueButton.disabled = false;
+  pinkButton.disabled = false;
+  brownButton.disabled = false;
+  number = 0;
+  restartButton.disabled = true;
+  document.getElementById("winner").innerHTML = "";
+
+}
 
 // Check for a winner
 const checkWinner = (position, color) => {
@@ -65,34 +80,10 @@ const checkWinner = (position, color) => {
 }
 
 
-// const restartHorse =(e) => {
-//     blue_position = 0;
-//     pink_position = 0;
-//     brown_position = 0;
-//     number = 0;
-//     blueButton.disabled = false;
-//     pinkButton.disabled = false;
-//     brownButton.disabled = false;
-//     restartButton.disabled = true;
-//     document.getElementById("winner").innerHTML = "";
-      
-// }
-
 
 
 // Event Listeners Here
 blueButton.addEventListener("click", advanceBlue);
 pinkButton.addEventListener("click",advancePink);
 brownButton.addEventListener("click",advancebrown);
-restartButton.addEventListener("click", () => {
-  blue_position = 1;
-  pink_position = 1;
-  brown_position = 1;
-  blueButton.disabled = false;
-  pinkButton.disabled = false;
-  brownButton.disabled = false;
-  number = 0;
-  restartButton.disabled = true;
-  document.getElementById("winner").innerHTML = "";
-
-});
+restartButton.addEventListener("click", restartGame);
