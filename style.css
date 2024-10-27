@@ -44,6 +44,10 @@ button {
   background-color: pink;
 } #brown-button:hover {
   background-color: #91807e;
+} 
+
+#restart-button:hover {
+  background-color: #fcfee2;
 }
 
 #blue-horse {
