@@ -1,49 +1,102 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css">
-    <title>Horse Race</title>
-  </head>
-  <body>
-    <div class="container">
-      <h1>The National Horse Race</h1>
+console.log("Script Running");
 
-      <button id="steps-Button">Steps</button>
-        <div id="steps"></div>
+const changePosition = (horse, position) => (position <= 5 ? horse.style.setProperty('grid-column', position) : null);
 
-      <button id="color-Button">Color</button>
-      <div id="chosen-horse"></div>
+let blue_position = 1;
+let pink_position = 1;
+let brown_position = 1;
 
-      <div class="section">
-        <div class="horse">
-          <button id="blue-button" value="blue" aria-label="Advance blue horse">Run!</button>
-          <div class="track"><img id="blue-horse" src="img/blue.png" arial-live="polite" arial-atomic="true" alt="blue horse at postion 1 out of 5" /></div>
-        </div>
-        <div class="horse">
-          <button id="pink-button" value="pink" aria-label="Advance pink horse">Run!</button>
-          <div class="track"><img id="pink-horse" src="img/pink.jpg" arial-live="polite" arial-atomic="true" alt="pink horse at position 1 out of 5" /></div>
-        </div>
-        <div class="horse">
-          <button id="brown-button" value="brown" aria-label="Advance brown horse">Run!</button>
-          <div class="track"><img id="brown-horse" src="img/brown.png" arial-live="polite" arial-atomic="true" alt="brown horse at position 1 out of 5" /></div>
-        </div>
-      </div>
+let number = 0;
 
-      <br>
+// Query Selectors Here
+const blueButton = document.querySelector("#blue-button");
+const blueHorse = document.querySelector("#blue-horse");
 
-      <button id="restart-button" value="restart">Restart Game</button>
+const pinkButton = document.querySelector("#pink-button");
+const pinkHorse = document.querySelector("#pink-horse");
 
-      <div id="winner"></div>
-    </div>
+const brownButton = document.querySelector("#brown-button");
+const brownHorse = document.querySelector("#brown-horse");
 
-    <script src="script.js"></script>
-  </body>
-</html>
+const winnerButton = document.querySelector("#winner");
+
+const restartButton = document.querySelector("#restart-button");
+restartButton.style.display = "none";
 
 
-    <script src="script.js"></script>
-  </body>
-</html>
+const stepsButton = document.querySelector("#steps-Button");
+const steps = document.querySelector("#steps");
+
+const colorButton = document.querySelector("#color-Button");
+const Horse = document.querySelector("#chosen-horse");
+
+// OnClick Functions Here
+const advanceBlue = (e) => {
+  blue_position += 1;
+  changePosition(blueHorse, blue_position);
+  return checkWinner(blue_position, "Blue ");
+}
+
+const advancePink = (e) => {
+  pink_position += 1;
+  changePosition(pinkHorse, pink_position);
+  return checkWinner(pink_position, "Pink ");
+}
+
+const advancebrown = (e) => {
+  brown_position += 1;
+  changePosition(brownHorse, brown_position);
+  return checkWinner(brown_position, "Brown ");
+}
+
+const restartGame = (e) => {
+  brown_position = 1;
+  pink_position = 1;
+  blue_position = 1;
+  changePosition(blueHorse,blue_position);
+  changePosition(pinkHorse,pink_position);
+  changePosition(brownHorse,brown_position);
+  blueButton.disabled = false;
+  pinkButton.disabled = false;
+  brownButton.disabled = false;
+  number = 0;
+  restartButton.disabled = true;
+  document.getElementById("winner").innerHTML = "";
+  restartButton.style.display = "none";
+
+}
+
+// Check for a winner
+const checkWinner = (position, color) => {
+  if (number == 0){
+    if (position == 5){
+      document.getElementById("winner").innerHTML = color + "is the Winner!";
+      number = 1;
+      console.log(number);
+      blueButton.disabled = true;
+      pinkButton.disabled = true;
+      brownButton.disabled = true;
+      restartButton.disabled = false;
+      restartButton.style.display = "block";
+    }
+  }
+}
+
+const randomNum = (e) => {
+  let randomNumber = Math.floor(Math.random() * 3);
+  document.getElementById("steps").innerHTML = randomNumber;
+}
+
+const colorHorse = (e) => {
+  document.getElementById("chosen-horse").innerHTML = "'Blue' if the random number is 0, <p>'Pink' if it is 1, and</p><p>'Brown' if it is 2.</p>"
+}
+  
+
+
+// Event Listeners Here
+blueButton.addEventListener("click", advanceBlue);
+pinkButton.addEventListener("click",advancePink);
+brownButton.addEventListener("click",advancebrown);
+restartButton.addEventListener("click", restartGame);
+stepsButton.addEventListener("click", randomNum);
+colorButton.addEventListener("click", colorHorse);
